@@ -1,3 +1,27 @@
 .center-btn {
     margin: 0 auto;
 }
+
+.default-layout {
+    display: grid;
+    /* nav 80px body auto footer 3rem */
+    grid-template-rows: 80px auto 3rem;
+    grid-template-areas: "header" "main" "footer";
+}
+
+header {
+    grid-area: header;
+}
+
+main {
+    grid-area: main;
+    min-height: 88vh;
+}
+
+footer {
+    text-align: center;
+    grid-area: footer;
+    background-color:  #000;
+    color: #fff;
+    padding: 1rem;
+}

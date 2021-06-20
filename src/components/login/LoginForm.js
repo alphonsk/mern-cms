@@ -2,12 +2,12 @@ import React from 'react'
 // import React, { useState } from 'react'
 // import PropTypes from 'prop-types';
 
+import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import './login.css'
 
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+
 
 export const LoginForm = ({ handleChange, email, password, onSubmit }) => {
-    console.log('email', email);
 
     return (
         <Container className="login-container">

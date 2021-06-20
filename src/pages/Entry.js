@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Jumbotron } from 'react-bootstrap'
-import { Button } from 'react-bootstrap';
 import './entry.css'
 //
 import { LoginForm } from '../components/login/LoginForm';
@@ -42,9 +41,9 @@ const Entry = () => {
     }
 
     const showForm = () => {
-        if (loadForm == 'login')
+        if (loadForm === 'login')
             setLoadForm('passwordReset')
-        if (loadForm == 'passwordReset')
+        if (loadForm === 'passwordReset')
             setLoadForm('login')
     }
 
@@ -60,11 +59,11 @@ const Entry = () => {
         <div className="entry-page">
             <Jumbotron >
                 <div className="login-form">
-                    {(loadForm == 'login') && <LoginForm {...loginFormProps} />}
-                    {(loadForm == 'passwordReset') && <PasswordReset />}
+                    {(loadForm === 'login') && <LoginForm {...loginFormProps} />}
+                    {(loadForm === 'passwordReset') && <PasswordReset />}
                     <hr />
                     <p onClick={showForm} className='center-btn' style={{ fontStyle: 'italic', color: 'blue' }}>
-                        {(loadForm == 'passwordReset') ? 'Login' : 'Reset password'}
+                        {(loadForm === 'passwordReset') ? 'Login' : 'Reset password'}
                     </p>
                 </div>
             </Jumbotron>
