@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Jumbotron } from 'react-bootstrap'
 import './entry.css'
-//
+// 
 import { LoginForm } from '../components/login/LoginForm';
 import { PasswordReset } from '../components/passwordReset/PasswordReset';
+import { NewTicketForm } from '../components/newTicket/NewTicketForm';
 
 
 const Entry = () => {
@@ -37,7 +38,7 @@ const Entry = () => {
         }
         // setEmail(email);
         // setPassword(password);
-        console.log(email, password);
+        // console.log(email, password);
     }
 
     const showForm = () => {
@@ -59,6 +60,7 @@ const Entry = () => {
         <div className="entry-page">
             <Jumbotron >
                 <div className="login-form">
+                    {/* <NewTicketForm {...loginFormProps} /> */}
                     {(loadForm === 'login') && <LoginForm {...loginFormProps} />}
                     {(loadForm === 'passwordReset') && <PasswordReset />}
                     <hr />

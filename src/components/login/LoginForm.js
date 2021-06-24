@@ -1,13 +1,13 @@
 import React from 'react'
 // import React, { useState } from 'react'
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import './login.css'
 
 
 
-export const LoginForm = ({ handleChange, email, password, onSubmit }) => {
+export const LoginForm = ({ handleChange, onSubmit, email, password }) => {
 
     return (
         <Container className="login-container">
@@ -42,16 +42,15 @@ export const LoginForm = ({ handleChange, email, password, onSubmit }) => {
                     </Form>
                 </Col>
             </Row>
-
         </Container>
     )
 }
 
-// LoginForm.propTypes = {
-//     handleChange: PropTypes.func.isRequired,
-//     onSubmit: PropTypes.func.isRequired,
-//     email: PropTypes.string.isRequired,
-//     password: PropTypes.string.isRequired
-// }
+LoginForm.propTypes = {
+    handleChange: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired
+}
 
 // export default LoginForm

@@ -11,22 +11,26 @@ export const TicketTable = ({ tickets }) => {
                 <thead>
                     <tr>
                         <th> # </th>
-                        <th> status </th>
+                        <th> subject </th>
                         <th> description </th>
                         <th> date </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {tickets.length && tickets.map(ticket => {
-                        const { id, status, addedAt } = ticket;
+                    {(tickets.length > 0) && tickets.map(ticket => {
+                        const { id, subject, addedAt } = ticket;
                         return (<tr key={id}>
                             <td> {id}</td>
-                            <td> {status} </td>
+                            <td> {subject} </td>
                             <td> i did not get paid </td>
                             <td> {addedAt} </td>
                         </tr>)
                     }
                     )}
+
+                    {
+                        !tickets.length && <tr > <td colSpan="4" style={{ textAlign: "center" }}> No tickets </td>  </tr>
+                    }
 
 
                 </tbody>

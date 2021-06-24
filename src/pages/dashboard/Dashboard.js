@@ -6,10 +6,18 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import './dashboard.css';
 
 import tickets from '../../assets/testticketdata.json'
+import { PageBreadcrumb } from '../../components/breadcrumb/Breadcrumb';
 
 export const Dashboard = () => {
+    // const tickets = [];
+
     return (
         <Container className="dashboard-container" >
+            <Row>
+                <Col>
+                    <PageBreadcrumb pageName='Dashboard' />
+                </Col>
+            </Row>
             <Row>
                 <Col className="text-center mt-5 mb-2" >
                     <Button>
