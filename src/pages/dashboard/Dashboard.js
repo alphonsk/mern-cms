@@ -3,6 +3,7 @@ import React from 'react'
 import { TicketTable } from '../../components/ticketsTable/TicketTable'
 
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 import './dashboard.css';
 
 import tickets from '../../assets/testticketdata.json'
@@ -20,9 +21,11 @@ export const Dashboard = () => {
             </Row>
             <Row>
                 <Col className="text-center mt-5 mb-2" >
-                    <Button>
-                        Add new ticket
-                    </Button>
+                    <Link to='/newTicket'>
+                        <Button>
+                            Add new ticket
+                        </Button>
+                    </Link>
                 </Col>
             </Row>
 

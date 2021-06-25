@@ -1,0 +1,10 @@
+.header a {
+    color: #fff;
+    padding: 0 5px;
+    text-decoration: none;
+}
+
+.header a:hover {
+    color: blue;  
+    text-transform: uppercase;
+}

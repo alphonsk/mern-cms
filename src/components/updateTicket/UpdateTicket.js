@@ -6,13 +6,13 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 
 
 
-export const UpdateTicket = ({ handleChange, onSubmit, update }) => {
+export const UpdateTicket = ({ handleChange, onSubmit, update, msgs }) => {
 
     return (
         <Container className="updateTicket-container mt-5">
             <Row>
                 <Col>
-                    <h3 className="updateTicket-header"> Reply </h3>
+                    <h3 className="updateTicket-header"> {msgs ? 'Reply' : 'Chat'}   </h3>
                     <Form onSubmit={onSubmit}>
                         <Form.Group>
                             <Form.Control as="textarea"
@@ -20,12 +20,12 @@ export const UpdateTicket = ({ handleChange, onSubmit, update }) => {
                                 rows={4}
                                 value={update}
                                 onChange={handleChange}
-                                placeholder="Reply here"
+                                placeholder={msgs ? "Reply here" : "Start a chat"}
                                 required
                             />
                         </Form.Group>
                         <Form className="text-right">
-                            <Button type="submit"> Reply </Button>
+                            <Button type="submit"> {msgs ? 'Reply' : 'Chat'} </Button>
                         </Form>
 
                     </Form>

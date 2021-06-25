@@ -11,9 +11,10 @@ import { NewTicketForm } from '../components/newTicket/NewTicketForm';
 export const Entry = () => {
     // const [email, setEmail] = useState('');
     // const [password, setPassword] = useState(''); 
-    const [formData, setFormData] = useState({ email: '', password: '' });
-    const { email, password } = formData;
-    const [loadForm, setLoadForm] = useState('login')
+    const [formData, setFormData] = useState({ email: '', password: '', confirmPassword: '' });
+    const { email, password, confirmPassword } = formData;
+    const [loadForm, setLoadForm] = useState('login');
+    const [signUpForm, setSignUpForm] = useState(false);
 
 
     // const handleChange = (e) => {
@@ -37,6 +38,16 @@ export const Entry = () => {
         if (!email || !password) {
             alert('please enter email')
         }
+
+        if (signUpForm) {
+            if (!email || !password || !confirmPassword) {
+                alert('please enter email');
+            }
+        }
+
+
+
+        // confirmPassword
         // setEmail(email);
         // setPassword(password);
         // console.log(email, password);
@@ -65,16 +76,12 @@ export const Entry = () => {
                     {(loadForm === 'login') && <LoginForm {...loginFormProps} />}
                     {(loadForm === 'passwordReset') && <PasswordReset />}
                     <hr />
-                    {/* <p onClick={showForm} className='center-btn' style={{ fontStyle: 'italic', color: 'blue' }}>
-                        {(loadForm === 'passwordReset') ? 'Login' : 'Reset password'}
-                    </p> */}
                     <p onClick={showForm} className='center-btn' style={{ fontStyle: 'italic', color: 'blue' }}>
                         {(loadForm === 'passwordReset') ? 'Login' : 'Reset password'}
                         {"  |  "}
                         <span className='center-btn' style={{ fontStyle: 'normal', color: 'blue', textDecoration: "none" }}>
                             <Link to="/signup" style={{ textDecoration: "none" }}> Signup</Link>
-                        </span>
-                    </p>
+                        </span></p>
                 </div>
             </Jumbotron>
 

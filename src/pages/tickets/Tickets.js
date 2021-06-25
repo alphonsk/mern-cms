@@ -2,12 +2,15 @@
 import React, { useState, useEffect } from 'react'
 //
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 import { PageBreadcrumb } from '../../components/breadcrumb/Breadcrumb';
+
+//
 import { SearchForm } from '../../components/searchForm/SearchForm';
 import { TicketTable } from '../../components/ticketsTable/TicketTable';
 import tickets from '../../assets/testticketdata.json'
 
-export const TicketList = () => {
+export const Tickets = () => {
     const [searchStr, setSearchStr] = useState('');
     const [displayTickets, setDisplayTickets] = useState(tickets)
     // const tickets = [];
@@ -33,7 +36,7 @@ export const TicketList = () => {
     }
 
     return (
-        <Container className="ticketList-container" >
+        <Container className="Tickets-container" >
             <Row>
                 <Col>
                     <PageBreadcrumb pageName='Tickets' />
@@ -41,7 +44,9 @@ export const TicketList = () => {
             </Row>
             <Row>
                 <Col>
-                    <Button variant="info"> Add new Ticket</Button>
+                    <Link to='/newTicket'>
+                        <Button variant="info"> Add new Ticket</Button>
+                    </Link>
                 </Col>
                 <Col className="text-right">
                     <SearchForm {...formProps} />

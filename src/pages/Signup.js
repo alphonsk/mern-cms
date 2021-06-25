@@ -3,17 +3,16 @@ import { Link } from 'react-router-dom'
 import { Jumbotron } from 'react-bootstrap'
 import './entry.css'
 // 
-import { LoginForm } from '../components/login/LoginForm';
+import { SignupForm } from '../components/login/SignupForm';
 import { PasswordReset } from '../components/passwordReset/PasswordReset';
 import { NewTicketForm } from '../components/newTicket/NewTicketForm';
 
 
-export const Entry = () => {
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState(''); 
-    const [formData, setFormData] = useState({ email: '', password: '' });
-    const { email, password } = formData;
-    const [loadForm, setLoadForm] = useState('login')
+export const Signup = () => {
+    const [formData, setFormData] = useState({ email: '', password: '', confirmPassword: '' });
+    const { email, password, confirmPassword } = formData;
+    // const [loadForm, setLoadForm] = useState('login');
+    // const [signUpForm, setSignUpForm] = useState(false);
 
 
     // const handleChange = (e) => {
@@ -34,42 +33,38 @@ export const Entry = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if (!email || !password) {
-            alert('please enter email')
+
+        if (!email || !password || !confirmPassword) {
+            alert('please enter all info');
         }
+
+        if (password !== confirmPassword) {
+            alert('passwords do not march')
+        }
+
+        // confirmPassword
         // setEmail(email);
         // setPassword(password);
         // console.log(email, password);
     }
 
-    const showForm = () => {
-        if (loadForm === 'login')
-            setLoadForm('passwordReset')
-        if (loadForm === 'passwordReset')
-            setLoadForm('login')
-    }
 
-
-    const loginFormProps = {
+    const signupFormProps = {
         handleChange,
         onSubmit,
         email,
-        password
+        password,
+        confirmPassword
     }
 
     return (
         <div className="entry-page">
             <Jumbotron >
                 <div className="login-form">
-                    {/* <NewTicketForm {...loginFormProps} /> */}
-                    {(loadForm === 'login') && <LoginForm {...loginFormProps} />}
-                    {(loadForm === 'passwordReset') && <PasswordReset />}
-                    <hr />
-                    {/* <p onClick={showForm} className='center-btn' style={{ fontStyle: 'italic', color: 'blue' }}>
-                        {(loadForm === 'passwordReset') ? 'Login' : 'Reset password'}
-                    </p> */}
-                    <p onClick={showForm} className='center-btn' style={{ fontStyle: 'italic', color: 'blue' }}>
-                        {(loadForm === 'passwordReset') ? 'Login' : 'Reset password'}
+                    <SignupForm {...signupFormProps} />
+
+                    <p className='center-btn' style={{ color: 'blue' }}>
+                        <Link to="/" style={{ textDecoration: "none" }}> Login </Link>
                         {"  |  "}
                         <span className='center-btn' style={{ fontStyle: 'normal', color: 'blue', textDecoration: "none" }}>
                             <Link to="/signup" style={{ textDecoration: "none" }}> Signup</Link>
