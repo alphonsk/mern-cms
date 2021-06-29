@@ -36,6 +36,40 @@ const getUserByEmail = async (email) => {
 };
 
 
+// get user by email
+const getUserById = async (id) => {
+    try {
+        return user = await UserSchema.findById(id).select('-password');
+        // return user;
+    } catch (error) {
+        return error
+    }
+};
+
+
+// update user
+const updateUser = async (id, update) => {
+    try {
+        return user = await UserSchema.findOneAndUpdate(
+            { _id: id },
+            { $set: update },
+            { new: true, upsert: true, setDefaultsOnInsert: true }
+        );
+    } catch (error) {
+        return error
+    }
+};
+
+
+
+// delete  user
+const deleteUser = async (id) => {
+    try {
+        return user = await UserSchema.findOneAndRemove({ _id: id })
+    } catch (error) {
+        return error;
+    }
+}
 
 
 
@@ -50,5 +84,8 @@ const getUserByEmail = async (email) => {
 //
 module.exports = {
     createUser,
+    getUserById,
     getUserByEmail,
+    updateUser,
+    deleteUser,
 };

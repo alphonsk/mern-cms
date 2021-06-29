@@ -37,15 +37,15 @@ const UserSchema = new Schema({
         required: true,
         minlength: 3,
         maxlength: 100,
-    },
-    date: {
-        type: Date,
-        default: Date.now
     }
-})
+}
+    ,
+    { timestamps: true }
+);
 
 // "name": "one",
 // "company": "westphilly",
+// phone: ,
 // "address": "1 happy lane",
 // "email": "one@mail.com",
 // "password": "1234"
