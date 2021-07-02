@@ -1,7 +1,10 @@
 const express = require("express");
+const moment = require('moment');
 const { hashPassword, comparePassword } = require("../helpers/bcrypt");
+const { sendEmail } = require("../helpers/emailHelper");
 const { createJwtToken, createJwtRefreshToken, } = require("../helpers/jwt");
-const { auth, userAuth } = require("../middlewares/auth");
+const { auth, userAuth } = require("../middlewares/auth"); 
+const { setPasswordResetPin } = require("../model/resetPin/ResetPinModel");
 // const userAuth = require("../middlewares/userAuth");
 const router = express.Router();
 const { createUser, getUserByEmail, getUserById, updateUser, deleteUser } = require("../model/user/UserModel");
@@ -173,6 +176,46 @@ router.delete('/', auth, async (req, res) => {
 
 })
 
+
+// Reset password 
+router.post('/resetpassword', async (req, res) => {
+    const { email } = req.body;
+    // check for and verify passasword
+    if (!email)
+        return res.json({ status: "error", message: "Enter the email you signed up with" });
+
+    // get current stored user password
+    const user = await getUserByEmail(email);
+    if (!user)
+        return res.json({ status: "success", message: "A pin has been sent to your email" });
+
+    // create reset pin
+    const setPin = await setPasswordResetPin(email);
+
+    let updatedAt = moment(setPin.updatedAt);
+    let expireAt = moment(setPin.updatedAt).add(1, 'days').format('DD/MMM/YY');;
+    let createdAt = moment(setPin.createdAt);
+    // (createdAt > expireAt); //  
+    let now = moment(new Date());
+
+    // console.log(" c ");
+    // console.log(updatedAt.from(now, 'days'));
+    // console.log(updatedAt.diff(now, 'days'));
+    // console.log(createdAt.from(now, 'days'));
+    // console.log(createdAt.diff(now, 'days'));
+
+    if ((updatedAt.diff(now, 'days')) != 0)
+        return res.json({ status: "error", message: "Try again latter" });
+
+    // send email
+    const emailSent = await sendEmail(setPin);
+
+    // return response
+    if (emailSent.message == "success") {
+        return res.json({ status: "success", message: "A pin has been sent to your email" });
+    }
+    return res.json({ status: "error", message: "Try again latter" });
+})
 
 
 

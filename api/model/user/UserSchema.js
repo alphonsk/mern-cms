@@ -37,6 +37,10 @@ const UserSchema = new Schema({
         required: true,
         minlength: 3,
         maxlength: 100,
+    },
+    admin: {
+        type: Boolean,
+        default: false,
     }
 }
     ,
