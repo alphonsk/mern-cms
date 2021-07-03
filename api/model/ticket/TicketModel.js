@@ -71,12 +71,10 @@ const verifyTicketEditor = async (ticketId, userId) => {
 // update ticket ticketId, userId
 const updateTicket = async (ticketObj) => {
     const { id, userId, sender, message } = ticketObj;
-    const update = { userId, sender, message };
 
     try {
-        return ticket = await TicketSchema.findOneAndUpdate(
+        const ticket = await TicketSchema.findOneAndUpdate(
             { _id: id },
-            // { $push: update },
             {
                 $push: {
                     conversations: { userId, sender, message },
@@ -84,11 +82,30 @@ const updateTicket = async (ticketObj) => {
             },
             { new: true, upsert: true, setDefaultsOnInsert: true }
         );
+        return ticket;
     } catch (error) {
-        return error
+        return error.message;
     }
 };
 
+
+
+// close ticket 
+const closeTicket = async (ticketObj) => {
+    const { id, status } = ticketObj;
+
+    try {
+        const ticket = await TicketSchema.findOneAndUpdate(
+            { _id: id },
+            { status },
+            { new: true, upsert: true, setDefaultsOnInsert: true }
+        );
+        return ticket;
+    } catch (error) {
+        // console.log('ccc ', error.message);
+        return error.message;
+    }
+};
 
 
 
@@ -117,6 +134,7 @@ module.exports = {
     getTicketById,
     getTicketByuserId,
     updateTicket,
+    closeTicket,
     deleteTicket,
     verifyTicketEditor,
 };

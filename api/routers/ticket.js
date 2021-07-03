@@ -5,7 +5,7 @@ const { check, validationResult } = require('express-validator');
 //
 const { auth, userAuth } = require("../middlewares/auth");
 const checkObjectId = require("../middlewares/checkObjectId");
-const { createTicket, getTicketById, getTicketByuserId, updateTicket, deleteTicket, verifyTicketEditor, } = require("../model/ticket/TicketModel");
+const { createTicket, getTicketById, getTicketByuserId, updateTicket, closeTicket, deleteTicket, verifyTicketEditor, } = require("../model/ticket/TicketModel");
 const { getUserById } = require("../model/user/UserModel");
 
 
@@ -78,6 +78,7 @@ router.get(
 
 
 
+
 //
 // get ticket by userid
 router.get(
@@ -131,22 +132,47 @@ router.put(
         // update
         const userInfo = await getUserById(userId);
         const sender = userInfo.name;
-        const updatedMessage = await updateTicket({ id, userId, sender, message: req.body.message })
-        // console.log("body ", updatedMessage);
+        const message = req.body.message;
+        const updatedMessage = await updateTicket({ id, userId, sender, message })
         return res.json(updatedMessage);
     }
 );
-
-
-//     }
-// );
 
 
 
 
 
 // close ticket
+router.put(
+    '/close/:id',
+    checkObjectId('id'),
+    auth, userAuth,
+    async (req, res) => {
+        //
+        const userId = req.userId;
+        const id = req.params.id;
+        const status = "closed";
 
+        // is ticket available
+        const ticket = await getTicketById(id);
+        if (!ticket) return res.status(400).json({ status: "error", message: 'Ticket not found' });
+
+        // validate user either writer or admin 
+        const correctUser = await verifyTicketEditor(id, userId);
+
+        //
+        if (!correctUser) {
+            return res.json({
+                status: "error",
+                message: "Unable to update your message",
+            });
+        }
+
+        // update status  
+        const closedTicket = await closeTicket({ id, status })
+        return res.json(closedTicket);
+    }
+);
 
 
 
@@ -171,7 +197,7 @@ router.delete(
             return res.json({ status: "success", message: 'Ticket deleted' });
         }
 
-        return res.json({ status: "error", message: "Unable to update your message", });
+        return res.json({ status: "error", message: "Unable to delete, try again later", });
 
     }
 );
